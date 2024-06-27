@@ -1,11 +1,11 @@
 import cartopy.crs as ccrs
 import cartopy.io.shapereader as shapereader
-from calculation import TicksLocation
 from cartopy.mpl.geoaxes import GeoAxes
 from cartopy.mpl.ticker import LatitudeFormatter, LongitudeFormatter
-from lat_lon_format import format_latitude, format_longitude
 
 from constant import LAT_END, LAT_START, LON_END, LON_START
+from figure.map.calculation import TicksLocation
+from figure.map.lat_lon_format import format_latitude, format_longitude
 
 
 class MapAxesMethod:
@@ -25,6 +25,15 @@ class MapAxesMethod:
         prefs = filter(
             lambda province: province.attributes["admin"] == "Japan", provinces
         )
+        for pref in prefs:
+            geometry = pref.geometry
+            self.ax.add_geometries(
+                [geometry],
+                ccrs.PlateCarree(),
+                facecolor="none",
+                linestyle="-",
+                linewidth=0.15,
+            )
 
     def set_ticks(self) -> None:
         ticks = TicksLocation()

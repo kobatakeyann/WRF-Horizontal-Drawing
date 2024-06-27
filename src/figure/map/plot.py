@@ -1,7 +1,7 @@
 from cartopy.mpl.geoaxes import GeoAxes
-from map_axes import MapAxesMethod
 
 from constant import is_deg_min_format
+from figure.map.map_axes import MapAxesMethod
 
 
 def make_blank_map(ax: GeoAxes) -> GeoAxes:

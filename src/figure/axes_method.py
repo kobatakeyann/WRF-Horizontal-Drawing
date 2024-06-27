@@ -4,8 +4,8 @@ import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 from cartopy.mpl.geoaxes import GeoAxes
-from fig_calculation import get_cbar_levels, get_contour_levels
 from matplotlib.axes import Axes
+from matplotlib.figure import Figure
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from numpy import ndarray
 
@@ -18,6 +18,7 @@ from constant import (
     CBAR_UNIT,
     COLOR_MAP_NAME,
     CONTOUR_COLOR,
+    CONTOUR_LABEL_SIZE,
     CONTOUR_WIDTH,
     GRIDLINE_COLOR,
     GRIDLINE_WIDTH,
@@ -28,6 +29,7 @@ from constant import (
     VECTOR_LEGEND_NAME,
     VECTOR_REDUCTION_SCALE,
 )
+from figure.fig_calculation import get_cbar_levels, get_contour_levels
 
 
 class BaseAxesMethod:
@@ -39,13 +41,18 @@ class BaseAxesMethod:
 
     def plot_text(self, x_loc: float, y_loc: float, text: str) -> None:
         self.ax.text(
-            x_loc, y_loc, text, size=8, color="black", transform=Axes.transAxes
+            x_loc,
+            y_loc,
+            text,
+            size=8,
+            color="black",
+            transform=self.ax.transAxes,
         )
 
-    def save_figure(self, save_dir: str, filename: str) -> None:
+    def save_figure(self, fig: Figure, save_dir: str, filename: str) -> None:
         os.makedirs(save_dir, exist_ok=True)
         out_path = f"{save_dir}/{filename}"
-        plt.savefig(out_path, dpi=300)
+        fig.savefig(out_path, dpi=300)
 
 
 class GeoAxesMethod(BaseAxesMethod):
@@ -83,7 +90,7 @@ class GeoAxesMethod(BaseAxesMethod):
         self.cbar.set_label(
             CBAR_UNIT,
             labelpad=CBAR_LABEL_LOCATION,
-            y=1.09,
+            y=1.08,
             rotation=0,
             fontsize=CBAR_LABEL_SIZE,
         )
@@ -95,10 +102,14 @@ class GeoAxesMethod(BaseAxesMethod):
             data,
             transform=ccrs.PlateCarree(),
             levels=get_contour_levels(),
-            linewidth=CONTOUR_WIDTH,
+            linewidths=CONTOUR_WIDTH,
             colors=CONTOUR_COLOR,
         )
-        self.ax.clabel(self.contour, fmt="%.{0[0]}f".format([0]), fontsize=10)
+        self.ax.clabel(
+            self.contour,
+            fmt="%.{0[0]}f".format([0]),
+            fontsize=CONTOUR_LABEL_SIZE,
+        )
 
     def plot_vector(
         self,
@@ -115,7 +126,7 @@ class GeoAxesMethod(BaseAxesMethod):
             transform=ccrs.PlateCarree(),
             regrid_shape=VECTOR_DENSITY,
             scale=VECTOR_REDUCTION_SCALE,
-            angle="xy",
+            angles="xy",
             scale_units="xy",
             color=VECTOR_COLOR,
         )
@@ -123,8 +134,8 @@ class GeoAxesMethod(BaseAxesMethod):
     def plot_legend_vector(self) -> None:
         self.ax.quiverkey(
             self.vector,
-            0.9,
-            0.1,
+            0.92,
+            -0.08,
             VECTOR_LEDEND_VALUE,
             VECTOR_LEGEND_NAME,
             labelpos="E",

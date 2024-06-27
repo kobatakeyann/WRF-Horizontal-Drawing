@@ -5,7 +5,7 @@ from arangement.replacement import DimensionArrayReplacement
 
 def output_dataset_information(wrfout_path: str) -> None:
     target_wrfout = DimensionArrayReplacement(wrfout_path)
-    dataset = target_wrfout.data
+    dataset = target_wrfout.dataset
     parent_dir = Path(wrfout_path).parent
     filename = Path(wrfout_path).stem
     output_path = f"{parent_dir}/info_{filename}.txt"

@@ -18,7 +18,7 @@ from constant import (
 def calculate_figsize() -> tuple:
     lat_dif = LAT_END - LAT_START
     lon_dif = LON_END - LON_START
-    figsize = (7, int(int(lat_dif) * 7 / int(lon_dif)))
+    figsize = (7, 7 * float(float(lat_dif) / float(lon_dif)))
     return figsize
 
 
