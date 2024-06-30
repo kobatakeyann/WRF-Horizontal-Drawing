@@ -29,6 +29,7 @@ from util.path_complement import generate_path
 class PlotWrfoutData:
     def __init__(self, wrfout_path: str) -> None:
         self.wrfout = Slicing(wrfout_path)
+        self.datetimes = get_correct_times(self.wrfout.dataset["XTIME"].values)
         self.save_dir = generate_path(f"/img/{Path(wrfout_path).stem}/")
         fig = plt.figure(figsize=calculate_figsize())
         ax = fig.add_axes(
@@ -44,7 +45,6 @@ class PlotWrfoutData:
         shade_plot=False,
         contour_plot=False,
         vector_plot=False,
-        grid_line=True,
     ) -> None:
 
         basefig = pickle.loads(self.basefig)
@@ -54,7 +54,10 @@ class PlotWrfoutData:
         lat = self.wrfout.extract_array(dataset, "XLAT")
         save_dir = f"{self.save_dir}/horizontal/"
         if shade_plot:
-            shade_data = self.wrfout.extract_array(dataset, SHADE_VARNAME)
+            shade_data = (
+                self.wrfout.extract_array(dataset, SHADE_VARNAME)[0, :, :]
+                * 1000
+            )
             target_ax.plot_shading(lon, lat, shade_data)
             target_ax.plot_colorbar(is_auto_ticks=cbar_auto_ticks)
             target_ax.set_cbar_label()
@@ -101,7 +104,6 @@ class PlotWrfoutData:
         index: int,
         contour_plot=False,
         vector_plot=False,
-        grid_line=True,
     ) -> None:
 
         basefig = pickle.loads(self.basefig)
@@ -158,17 +160,14 @@ class PlotWrfoutData:
         shade_plot=False,
         contour_plot=False,
         vector_plot=False,
-        grid_line=True,
     ) -> None:
-        datetimes = self.wrfout.dataset["Time"].values
-        for datetime in datetimes:
+        for datetime in self.datetimes:
             print(f"Now making {datetime} figure …")
             self.make_figure(
                 datetime,
                 shade_plot=shade_plot,
                 contour_plot=contour_plot,
                 vector_plot=vector_plot,
-                grid_line=grid_line,
             )
         print("Successfully Completed!")
 
@@ -176,17 +175,14 @@ class PlotWrfoutData:
         self,
         contour_plot=False,
         vector_plot=False,
-        grid_line=True,
     ) -> None:
-        datetimes = get_correct_times(self.wrfout.dataset["XTIME"].values)
-        for index, datetime in enumerate(datetimes):
+        for index, datetime in enumerate(self.datetimes):
             print(f"Now making {datetime} figure …")
             self.make_preciptation_figure(
                 datetime,
                 index,
                 contour_plot=contour_plot,
                 vector_plot=vector_plot,
-                grid_line=grid_line,
             )
         print("Successfully Completed!")
 

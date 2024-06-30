@@ -9,7 +9,7 @@ from matplotlib.figure import Figure
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from numpy import ndarray
 
-from constant import (
+from constant import (  # VECTOR_HEADAXIS_LENGTH,; VECTOR_HEADLENGTH,; VECTOR_HEADWIDTH,; VECTOR_WIDTH,
     CBAR_EXTENTION,
     CBAR_LABEL_LOCATION,
     CBAR_LABEL_SIZE,
@@ -129,6 +129,10 @@ class GeoAxesMethod(BaseAxesMethod):
             angles="xy",
             scale_units="xy",
             color=VECTOR_COLOR,
+            # width=VECTOR_WIDTH,
+            # headwidth=VECTOR_HEADWIDTH,
+            # headlength=VECTOR_HEADLENGTH,
+            # headaxislength=VECTOR_HEADAXIS_LENGTH,
         )
 
     def plot_legend_vector(self) -> None:

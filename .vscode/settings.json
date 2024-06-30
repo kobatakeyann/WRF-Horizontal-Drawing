@@ -7,7 +7,7 @@
         },
     },
     "black-formatter.interpreter": [
-        ".venv/bin/python"
+        "/work1/kobatake_yusuke/miniconda3/envs/wrf/bin/python"
     ],
     "black-formatter.args": [
         "--line-length=79"
