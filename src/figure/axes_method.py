@@ -33,7 +33,7 @@ from figure.fig_calculation import get_cbar_levels, get_contour_levels
 
 
 class BaseAxesMethod:
-    def __init__(self, ax: Axes | GeoAxes) -> None:
+    def __init__(self, ax: GeoAxes) -> None:
         self.ax = ax
 
     def set_title(self, title_name: str) -> None:

@@ -17,10 +17,3 @@ def make_gif_from_imgs(img_dir_path: str, saved_gif_path: str) -> None:
         duration=150,
         loop=0,
     )
-
-
-make_gif_from_imgs(
-    "/work1/kobatake_yusuke/WRF/analysis/drawing/img/wrfout_nonetest_d03_2021-08-05_00:00:00/horizontal/_RAINRC__HGT__U10_",
-    # "/work1/kobatake_yusuke/WRF/analysis/drawing/img/wrfout_nestingtest_d03_2023-08-21_00:00:00/horizontal/_RAINNC__HGT__U10_/rainfall.gif",
-    "/work1/kobatake_yusuke/WRF/analysis/drawing/img/wrfout_nonetest_d03_2021-08-05_00:00:00/horizontal/_RAINRC__HGT__U10_/rainfall.gif",
-)

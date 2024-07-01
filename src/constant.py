@@ -5,18 +5,15 @@ LAT_END = 33.8
 LON_START = 129.95
 LON_END = 130.8
 
-LAT_LON_RANGE: dict[str, tuple[float, float]] = {
-    "lat": (LAT_START, LAT_END),
-    "lon": (LON_START, LON_END),
-}
-
 LON_TICKS_INTERVAL = 0.1
 LAT_TICKS_INTERVAL = 0.1
 
 is_deg_min_format = False
 
+PRESSURE_PLAIN = 700
+
 shade_plot = True
-SHADE_VARNAME = "RAINRC"
+SHADE_VARNAME = "RAINNC"
 SHADE_MIN = 1
 SHADE_MAX = 51
 SHADE_INTERVAL = 5
@@ -40,8 +37,8 @@ CONTOUR_COLOR = "black"
 CONTOUR_LABEL_SIZE = 5
 
 vector_plot = True
-U_VEXTOR_VARNAME = "U10"
-V_VEXTOR_VARNAME = "V10"
+U_VEXTOR_VARNAME = "uvmet10"
+V_VEXTOR_VARNAME = "uvmet10"
 VECTOR_DENSITY = 24
 VECTOR_REDUCTION_SCALE = 100
 VECTOR_COLOR = "sandybrown"
