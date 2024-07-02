@@ -2,6 +2,8 @@ from glob import glob
 
 from PIL import Image
 
+from constant import GIF_INTERVAL_TIME
+
 
 def make_gif_from_imgs(img_dir_path: str, saved_gif_path: str) -> None:
     img_array = []
@@ -14,6 +16,6 @@ def make_gif_from_imgs(img_dir_path: str, saved_gif_path: str) -> None:
         save_all=True,
         append_images=img_array[1:],
         optimize=True,
-        duration=150,
+        duration=GIF_INTERVAL_TIME,
         loop=0,
     )

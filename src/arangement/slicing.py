@@ -12,55 +12,56 @@ from time_relation.conversion import get_formatted_times
 class Slicing:
     def __init__(self, wrfout_path: str) -> None:
         self.nc_ds = nc.Dataset(wrfout_path)
-        extracted_dt = to_np(self.get_var_dataset("times"))
+        extracted_dt = to_np(getvar(self.nc_ds, "times", timeidx=ALL_TIMES))
         self.formatted_dt = get_formatted_times(extracted_dt)
+        self.time_dict = {
+            datetime: index for index, datetime in enumerate(self.formatted_dt)
+        }
 
-    def get_var_dataset(self, varname: str) -> DataArray:
-        var_dataset = getvar(self.nc_ds, varname, timeidx=ALL_TIMES)
+    def get_var_dataset(self, varname: str, datetime: datetime) -> DataArray:
+        var_dataset = getvar(
+            self.nc_ds, varname, timeidx=self.time_dict[datetime]
+        )
         self.var_ds = var_dataset
         return var_dataset
 
-    def get_2d_ds_at_p_plain(self, varname: str, pressure: float) -> None:
-        target_var_ds = self.get_var_dataset(varname)
-        pressure_ds = self.get_var_dataset("p")
+    def get_2d_ds_at_p_plain(
+        self, varname: str, pressure: float, datetime: datetime
+    ) -> None:
+        target_var_ds = self.get_var_dataset(varname, datetime)
+        pressure_ds = self.get_var_dataset("p", datetime)
         self.var_ds = interplevel(target_var_ds, pressure_ds, pressure)
+        self.var_ds.attrs["description"] = target_var_ds.description
 
-    def get_2d_ds_at_levels(self, varname: str, height: float) -> None:
-        target_var_ds = self.get_var_dataset(varname)
-        height_ds = self.get_var_dataset("z")
+    def get_2d_ds_at_levels(
+        self, varname: str, height: float, datetime: datetime
+    ) -> None:
+        target_var_ds = self.get_var_dataset(varname, datetime)
+        height_ds = self.get_var_dataset("z", datetime)
         self.var_ds = interplevel(target_var_ds, height_ds, height)
-
-    def slice_in_lat_dim(self) -> None:
-        self.var_ds = self.var_ds.sel(south_north=slice(LAT_START, LAT_END))
-
-    def slice_in_lon_dim(self) -> None:
-        self.var_ds = self.var_ds.sel(west_east=slice(LON_START, LON_END))
-
-    def slice_in_time_dim(self, datetime: datetime) -> DataArray:
-        self.var_ds = self.var_ds.sel(Time=datetime, method="nearest")
+        self.var_ds.attrs["description"] = target_var_ds.description
 
     def get_var_array(self, varname: str, datetime: datetime) -> ndarray:
         var_dims = getvar(self.nc_ds, varname).dims
         if "bottom_top" in var_dims:
-            self.get_2d_ds_at_p_plain(varname, PRESSURE_PLAIN)
+            self.get_2d_ds_at_p_plain(varname, PRESSURE_PLAIN * 100, datetime)
         else:
-            self.get_var_dataset(varname)
-        self.slice_in_time_dim(datetime)
+            self.get_var_dataset(varname, datetime)
         self.lat, self.lon = latlon_coords(self.var_ds)
         return to_np(self.var_ds)
 
-    def get_precipitation_array(self, time_index: int) -> ndarray:
-        rainnc_ds = self.get_var_dataset("RAINNC")
-        rainc_ds = self.get_var_dataset("RAINC")
-        accumurated_rain = to_np(rainnc_ds.isel(Time=time_index)) + to_np(
-            rainc_ds.isel(Time=time_index)
-        )
+    def get_precipitation_array(self, datetime: datetime) -> ndarray:
+        time_index = self.time_dict[datetime]
+        rainnc_ds = getvar(self.nc_ds, "RAINNC", timeidx=time_index)
+        rainc_ds = getvar(self.nc_ds, "RAINC", timeidx=time_index)
+        accumurated_rain = to_np(rainnc_ds) + to_np(rainc_ds)
         if time_index == 0:
             precipitation = accumurated_rain
         else:
             previous_accumurated_rain = to_np(
-                rainnc_ds.isel(Time=time_index - 1)
-            ) + to_np(rainc_ds.isel(Time=time_index - 1))
+                getvar(self.nc_ds, "RAINNC", timeidx=time_index - 1)
+            ) + to_np(getvar(self.nc_ds, "RAINC", timeidx=time_index - 1))
             precipitation = accumurated_rain - previous_accumurated_rain
         self.lat, self.lon = latlon_coords(rainnc_ds)
+        self.var_ds = rainnc_ds
         return precipitation

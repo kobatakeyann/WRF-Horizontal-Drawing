@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from wrf.routines import _VALID_KARGS
 from xarray import Dataset, open_dataset
 
 from time_relation.conversion import get_formatted_times
@@ -30,6 +31,12 @@ class WrfoutInfoOutput:
             f.write(
                 f"\n<< variables infomation >>\n{self.dataset.data_vars} \n"
             )
+            f.write("Diagnostics available for wrf-python:\n")
+            f.write(
+                "    see https://wrf-python.readthedocs.io/en/latest/user_api/generated/wrf.getvar.html#wrf.getvar\n"
+            )
+            for var in _VALID_KARGS.keys():
+                f.write(f"    {var}\n")
             f.write("\n\n################### Detail ###################\n")
             f.write(f"<< dimension infomation >>\n")
             for dim in self.dataset.dims:

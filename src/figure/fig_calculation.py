@@ -3,6 +3,7 @@ from numpy import ndarray
 
 from constant import (
     CONTOUR_INTERVAL,
+    CONTOUR_LABEL_INTERVAL,
     CONTOUR_MAX,
     CONTOUR_MIN,
     LAT_END,
@@ -36,5 +37,14 @@ def get_contour_levels() -> ndarray:
         float(CONTOUR_MIN),
         float(CONTOUR_MAX) + 0.000000000000001,
         float(CONTOUR_INTERVAL),
+    )
+    return levels
+
+
+def get_clabel_levels() -> ndarray:
+    levels = np.arange(
+        float(CONTOUR_MIN),
+        float(CONTOUR_MAX) + 0.000000000000001,
+        float(CONTOUR_LABEL_INTERVAL),
     )
     return levels
