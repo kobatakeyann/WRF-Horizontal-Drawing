@@ -110,3 +110,45 @@ class Slicing:
         self.lat, self.lon = latlon_coords(rainnc_ds)
         self.var_ds = rainnc_ds
         return precipitation
+
+
+class ArrayExtraction(Slicing):
+    def get_array_for_shade(
+        self, shade_varname: str, datetime: datetime, wrfout_interval: int
+    ) -> ndarray:
+        if shade_varname == "RAINNC" or shade_varname == "RAINC":
+            shade_array = self.get_precipitation_array(datetime) * (
+                60 / wrfout_interval
+            )
+        elif "divergence" in shade_varname:
+            shade_array = self.get_divergence_array(shade_varname, datetime)
+        elif "water_vapor_flux" in shade_varname:
+            self.get_moisture_flux(shade_varname, datetime)
+            u_data = self.moisture_flux_u
+            v_data = self.moisture_flux_v
+            shade_array = (u_data**2 + v_data**2) ** 0.5
+        else:
+            shade_array = self.get_var_array(shade_varname, datetime)
+        return shade_array
+
+    def get_array_for_contour(
+        self, contour_varname: str, datetime: datetime
+    ) -> ndarray:
+        contour_array = self.get_var_array(contour_varname, datetime)
+        return contour_array
+
+    def get_array_for_vector(
+        self, u_varname: str, v_varname: str, datetime: datetime
+    ) -> "tuple[ndarray, ndarray]":
+        if "water_vapor_flux" in u_varname:
+            self.get_moisture_flux(u_varname, datetime)
+            u_array = self.moisture_flux_u
+            v_array = self.moisture_flux_v
+        else:
+            u_array = self.get_var_array(u_varname, datetime)
+            if "u_v" in self.var_ds.dims:
+                u_array = u_array[0, :, :]
+            v_array = self.get_var_array(v_varname, datetime)
+            if "u_v" in self.var_ds.dims:
+                v_array = v_array[1, :, :]
+        return u_array, v_array

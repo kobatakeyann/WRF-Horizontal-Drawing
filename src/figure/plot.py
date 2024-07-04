@@ -5,7 +5,7 @@ from pathlib import Path
 import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 
-from arangement.slicing import Slicing
+from arangement.slicing import ArrayExtraction
 from constant import (
     CONTOUR_ADDITION,
     CONTOUR_MULTIPLIER,
@@ -37,7 +37,7 @@ from util.path_complement import generate_path
 
 class PlotWrfoutData:
     def __init__(self, wrfout_path: str) -> None:
-        self.wrfout = Slicing(wrfout_path)
+        self.wrfout = ArrayExtraction(wrfout_path)
         self.save_rootdir = generate_path(f"/img/{Path(wrfout_path).stem}")
         fig = plt.figure(figsize=calculate_figsize())
         ax = fig.add_axes(
@@ -48,25 +48,13 @@ class PlotWrfoutData:
         self.basefig = pickle.dumps(fig, protocol=pickle.HIGHEST_PROTOCOL)
 
     def plot_shade(self, ax: GeoAxesMethod, datetime: datetime) -> None:
-        if SHADE_VARNAME == "RAINNC" or SHADE_VARNAME == "RAINC":
-            shade_data = self.wrfout.get_precipitation_array(datetime) * (
-                60 / WRFOUT_INTERVAL
-            )
-        elif "divergence" in SHADE_VARNAME:
-            shade_data = self.wrfout.get_divergence_array(
-                SHADE_VARNAME, datetime
-            )
-        elif "water_vapor_flux" in SHADE_VARNAME:
-            self.wrfout.get_moisture_flux(SHADE_VARNAME, datetime)
-            u_data = self.wrfout.moisture_flux_u
-            v_data = self.wrfout.moisture_flux_v
-            shade_data = (u_data**2 + v_data**2) ** 0.5
-        else:
-            shade_data = self.wrfout.get_var_array(SHADE_VARNAME, datetime)
+        shade_array = self.wrfout.get_array_for_shade(
+            SHADE_VARNAME, datetime, WRFOUT_INTERVAL
+        )
         ax.plot_shading(
             self.wrfout.lon,
             self.wrfout.lat,
-            shade_data * SHADE_MULTIPLIER + SHADE_ADDITION,
+            shade_array * SHADE_MULTIPLIER + SHADE_ADDITION,
         )
         ax.plot_colorbar(is_auto_ticks=cbar_auto_ticks)
         ax.set_cbar_label()
@@ -78,11 +66,13 @@ class PlotWrfoutData:
         self.save_dir += f"_{SHADE_VARNAME}_"
 
     def plot_contour(self, ax: GeoAxesMethod, datetime: datetime) -> None:
-        contour_data = self.wrfout.get_var_array(CONTOUR_VARNAME, datetime)
+        contour_array = self.wrfout.get_array_for_contour(
+            CONTOUR_VARNAME, datetime
+        )
         ax.plot_contour(
             self.wrfout.lon,
             self.wrfout.lat,
-            contour_data * CONTOUR_MULTIPLIER + CONTOUR_ADDITION,
+            contour_array * CONTOUR_MULTIPLIER + CONTOUR_ADDITION,
         )
         ax.plot_text(
             VAR_INFO_XLOCATION,
@@ -92,22 +82,14 @@ class PlotWrfoutData:
         self.save_dir += f"_{CONTOUR_VARNAME}_"
 
     def plot_vector(self, ax: GeoAxesMethod, datetime: datetime) -> None:
-        if "water_vapor_flux" in U_VEXTOR_VARNAME:
-            self.wrfout.get_moisture_flux(U_VEXTOR_VARNAME, datetime)
-            u_data = self.wrfout.moisture_flux_u
-            v_data = self.wrfout.moisture_flux_v
-        else:
-            u_data = self.wrfout.get_var_array(U_VEXTOR_VARNAME, datetime)
-            if "u_v" in self.wrfout.var_ds.dims:
-                u_data = u_data[0, :, :]
-            v_data = self.wrfout.get_var_array(V_VEXTOR_VARNAME, datetime)
-            if "u_v" in self.wrfout.var_ds.dims:
-                v_data = v_data[1, :, :]
+        u_array, v_array = self.wrfout.get_array_for_vector(
+            U_VEXTOR_VARNAME, V_VEXTOR_VARNAME, datetime
+        )
         ax.plot_vector(
             self.wrfout.lon,
             self.wrfout.lat,
-            u_data * VECTOR_MULTIPLIER,
-            v_data * VECTOR_MULTIPLIER,
+            u_array * VECTOR_MULTIPLIER,
+            v_array * VECTOR_MULTIPLIER,
         )
         ax.plot_legend_vector()
         ax.plot_text(
