@@ -1,10 +1,13 @@
 import os
 
 import cartopy.crs as ccrs
+import matplotlib.colors as colors
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
+import numpy as np
 from cartopy.mpl.geoaxes import GeoAxes
 from matplotlib.axes import Axes
+from matplotlib.colors import ListedColormap
 from matplotlib.figure import Figure
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from numpy import ndarray
@@ -22,18 +25,28 @@ from constant import (  # VECTOR_HEADAXIS_LENGTH,; VECTOR_HEADLENGTH,; VECTOR_HE
     CONTOUR_WIDTH,
     GRIDLINE_COLOR,
     GRIDLINE_WIDTH,
+    SHADE_INTERVAL,
+    SHADE_MAX,
+    SHADE_MIN,
     TITLE_SIZE,
     VECTOR_COLOR,
     VECTOR_DENSITY,
     VECTOR_LEDEND_VALUE,
     VECTOR_LEGEND_NAME,
     VECTOR_REDUCTION_SCALE,
+    WHITE_PART_NUM_FROM_MIDDLE,
+    paint_all,
+    plot_contour_label,
 )
-from figure.fig_calculation import get_cbar_levels, get_contour_levels
+from figure.fig_calculation import (
+    get_cbar_levels,
+    get_clabel_levels,
+    get_contour_levels,
+)
 
 
 class BaseAxesMethod:
-    def __init__(self, ax: Axes | GeoAxes) -> None:
+    def __init__(self, ax: GeoAxes) -> None:
         self.ax = ax
 
     def set_title(self, title_name: str) -> None:
@@ -59,6 +72,22 @@ class GeoAxesMethod(BaseAxesMethod):
     def __init__(self, ax: GeoAxes) -> None:
         self.ax = ax
 
+    def get_color_map(self) -> ListedColormap:
+        cmap = plt.get_cmap(COLOR_MAP_NAME).copy()
+        cmap_array = cmap(np.arange(cmap.N))
+        if not paint_all:
+            number_of_color = int((SHADE_MAX - SHADE_MIN) / SHADE_INTERVAL)
+            interval = int(256 / number_of_color)
+            c_under, c_over = (
+                128 - interval * WHITE_PART_NUM_FROM_MIDDLE,
+                128 + interval * WHITE_PART_NUM_FROM_MIDDLE,
+            )
+            cmap_array[c_under:c_over] = [1, 1, 1, 1]
+            customized_cool = ListedColormap(cmap_array)
+        else:
+            customized_cool = cmap
+        return customized_cool
+
     def plot_shading(self, lon: ndarray, lat: ndarray, data: ndarray) -> None:
         self.shade = self.ax.contourf(
             lon,
@@ -66,7 +95,7 @@ class GeoAxesMethod(BaseAxesMethod):
             data,
             transform=ccrs.PlateCarree(),
             levels=get_cbar_levels(),
-            cmap=COLOR_MAP_NAME,
+            cmap=self.get_color_map(),
             extend=CBAR_EXTENTION,
         )
 
@@ -105,11 +134,13 @@ class GeoAxesMethod(BaseAxesMethod):
             linewidths=CONTOUR_WIDTH,
             colors=CONTOUR_COLOR,
         )
-        self.ax.clabel(
-            self.contour,
-            fmt="%.{0[0]}f".format([0]),
-            fontsize=CONTOUR_LABEL_SIZE,
-        )
+        if plot_contour_label:
+            self.ax.clabel(
+                self.contour,
+                levels=get_clabel_levels(),
+                fmt="%.{0[0]}f".format([0]),
+                fontsize=CONTOUR_LABEL_SIZE,
+            )
 
     def plot_vector(
         self,

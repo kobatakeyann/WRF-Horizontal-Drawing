@@ -1,3 +1,4 @@
+import matplotlib.style as mplstyle
 from cartopy.mpl.geoaxes import GeoAxes
 
 from constant import is_deg_min_format
@@ -5,6 +6,7 @@ from figure.map.map_axes import MapAxesMethod
 
 
 def make_blank_map(ax: GeoAxes) -> GeoAxes:
+    mplstyle.use("fast")
     map_axis = MapAxesMethod(ax)
     map_axis.plot_coastline()
     map_axis.plot_pref_border()

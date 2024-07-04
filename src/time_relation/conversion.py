@@ -1,14 +1,12 @@
 from datetime import datetime, timedelta
 
-import numpy as np
 import pandas as pd
 from numpy import datetime64, ndarray
 
 from constant import WRFOUT_INTERVAL
-from time_relation.round import round_off_below_sec
 
 
-class PaddingDate:
+class PaddingDatetime:
     def __init__(self, target_dt: datetime) -> None:
         self.year, self.month, self.day, self.hour, self.minute = (
             self.pad_with_zero(target_dt.year, 4),
@@ -22,9 +20,13 @@ class PaddingDate:
         return str(datatime_factor).zfill(digit)
 
 
-def get_correct_times(datetimes: ndarray) -> ndarray:
-    start_dt = convert_to_datetime(datetimes[0])
-    end_dt = convert_to_datetime(datetimes[-1])
+def datetime64_to_datetime(np_dt: datetime64) -> datetime:
+    return datetime.fromtimestamp(np_dt.astype(datetime) * 1e-9)
+
+
+def get_formatted_times(datetimes: ndarray) -> ndarray:
+    start_dt = datetime64_to_datetime(datetimes[0])
+    end_dt = datetime64_to_datetime(datetimes[-1])
     interval_minutes = WRFOUT_INTERVAL
     times = pd.date_range(
         start=start_dt,
@@ -33,10 +35,6 @@ def get_correct_times(datetimes: ndarray) -> ndarray:
     )
     times_np = pd.to_datetime(times).to_pydatetime()
     return times_np
-
-
-def convert_to_datetime(np_dt: datetime64) -> datetime:
-    return datetime.fromtimestamp(np_dt.astype(datetime) * 1e-9)
 
 
 def utc_to_jst(utc_dt: datetime) -> datetime:
