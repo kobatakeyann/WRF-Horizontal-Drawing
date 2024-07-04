@@ -1,11 +1,14 @@
+import warnings
 from datetime import datetime
 
 import netCDF4 as nc
+import numpy as np
+from nakametpy.kinematics import divergence_2d
 from numpy import ndarray
 from wrf import ALL_TIMES, getvar, interplevel, latlon_coords, to_np
 from xarray import DataArray
 
-from constant import LAT_END, LAT_START, LON_END, LON_START, PRESSURE_PLAIN
+from constant import PRESSURE_PLAIN
 from time_relation.conversion import get_formatted_times
 
 
@@ -18,12 +21,49 @@ class Slicing:
             datetime: index for index, datetime in enumerate(self.formatted_dt)
         }
 
+    def get_var_array(self, varname: str, datetime: datetime) -> ndarray:
+        var_dims = getvar(self.nc_ds, varname).dims
+        if "bottom_top" in var_dims:
+            self.get_2d_ds_at_p_plain(varname, PRESSURE_PLAIN * 100, datetime)
+        else:
+            self.get_var_dataset(varname, datetime)
+        self.lat, self.lon = latlon_coords(self.var_ds)
+        return to_np(self.var_ds)
+
     def get_var_dataset(self, varname: str, datetime: datetime) -> DataArray:
         var_dataset = getvar(
             self.nc_ds, varname, timeidx=self.time_dict[datetime]
         )
         self.var_ds = var_dataset
         return var_dataset
+
+    def get_divergence_array(
+        self, varname: str, datetime: datetime
+    ) -> ndarray:
+        dx = to_np(self.get_var_array("DX2D", datetime))
+        dy = to_np(self.get_var_array("DX2D", datetime))
+        if "surface" in varname:
+            u_wind = to_np(self.get_var_dataset("U10", datetime))
+            v_wind = to_np(self.get_var_dataset("V10", datetime))
+            mixing_ratio = to_np(self.get_var_dataset("Q2", datetime))
+            self.lat, self.lon = latlon_coords(self.var_ds)
+        else:
+            u_wind = self.get_var_array("uvmet", datetime)[0, :, :]
+            v_wind = self.get_var_array("uvmet", datetime)[1, :, :]
+            mixing_ratio = self.get_var_array("QVAPOR", datetime)
+        if "wind" in varname:
+            u = u_wind
+            v = v_wind
+            self.var_ds.attrs["description"] = "divergence of horizontal wind"
+        elif "moisture" in varname or "vapor" in varname:
+            u = mixing_ratio * 1000 * u_wind
+            v = mixing_ratio * 1000 * v_wind
+            self.var_ds.attrs["description"] = "divergence of water vapor flux"
+        warnings.simplefilter("ignore", FutureWarning)
+        divergence_array = divergence_2d(
+            u, v, np.delete(dx, -1, 1), np.delete(dy, -1, 0), wrfon=1
+        )
+        return divergence_array
 
     def get_2d_ds_at_p_plain(
         self, varname: str, pressure: float, datetime: datetime
@@ -41,14 +81,19 @@ class Slicing:
         self.var_ds = interplevel(target_var_ds, height_ds, height)
         self.var_ds.attrs["description"] = target_var_ds.description
 
-    def get_var_array(self, varname: str, datetime: datetime) -> ndarray:
-        var_dims = getvar(self.nc_ds, varname).dims
-        if "bottom_top" in var_dims:
-            self.get_2d_ds_at_p_plain(varname, PRESSURE_PLAIN * 100, datetime)
+    def get_moisture_flux(self, varname: str, datetime: datetime) -> None:
+        if "surface" in varname:
+            u_wind = to_np(self.get_var_dataset("U10", datetime))
+            v_wind = to_np(self.get_var_dataset("V10", datetime))
+            mixing_ratio = to_np(self.get_var_dataset("Q2", datetime))
+            self.lat, self.lon = latlon_coords(self.var_ds)
         else:
-            self.get_var_dataset(varname, datetime)
-        self.lat, self.lon = latlon_coords(self.var_ds)
-        return to_np(self.var_ds)
+            u_wind = self.get_var_array("uvmet", datetime)[0, :, :]
+            v_wind = self.get_var_array("uvmet", datetime)[1, :, :]
+            mixing_ratio = self.get_var_array("QVAPOR", datetime)
+        self.moisture_flux_u = mixing_ratio * u_wind
+        self.moisture_flux_v = mixing_ratio * v_wind
+        self.var_ds.attrs["description"] = "water vapor flux"
 
     def get_precipitation_array(self, datetime: datetime) -> ndarray:
         time_index = self.time_dict[datetime]

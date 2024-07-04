@@ -12,9 +12,11 @@ from constant import (
     CONTOUR_VARNAME,
     GIF_NAME,
     MP4_NAME,
+    PRESSURE_PLAIN,
     SHADE_ADDITION,
     SHADE_MULTIPLIER,
     SHADE_VARNAME,
+    TITLE,
     U_VEXTOR_VARNAME,
     V_VEXTOR_VARNAME,
     VAR_INFO_XLOCATION,
@@ -36,7 +38,7 @@ from util.path_complement import generate_path
 class PlotWrfoutData:
     def __init__(self, wrfout_path: str) -> None:
         self.wrfout = Slicing(wrfout_path)
-        self.save_rootdir = generate_path(f"/img/{Path(wrfout_path).stem}/")
+        self.save_rootdir = generate_path(f"/img/{Path(wrfout_path).stem}")
         fig = plt.figure(figsize=calculate_figsize())
         ax = fig.add_axes(
             (0.11, 0.15, 0.8, 0.8),
@@ -50,6 +52,15 @@ class PlotWrfoutData:
             shade_data = self.wrfout.get_precipitation_array(datetime) * (
                 60 / WRFOUT_INTERVAL
             )
+        elif "divergence" in SHADE_VARNAME:
+            shade_data = self.wrfout.get_divergence_array(
+                SHADE_VARNAME, datetime
+            )
+        elif "water_vapor_flux" in SHADE_VARNAME:
+            self.wrfout.get_moisture_flux(SHADE_VARNAME, datetime)
+            u_data = self.wrfout.moisture_flux_u
+            v_data = self.wrfout.moisture_flux_v
+            shade_data = (u_data**2 + v_data**2) ** 0.5
         else:
             shade_data = self.wrfout.get_var_array(SHADE_VARNAME, datetime)
         ax.plot_shading(
@@ -81,12 +92,17 @@ class PlotWrfoutData:
         self.save_dir += f"_{CONTOUR_VARNAME}_"
 
     def plot_vector(self, ax: GeoAxesMethod, datetime: datetime) -> None:
-        u_data = self.wrfout.get_var_array(U_VEXTOR_VARNAME, datetime)
-        if "u_v" in self.wrfout.var_ds.dims:
-            u_data = u_data[0, :, :]
-        v_data = self.wrfout.get_var_array(V_VEXTOR_VARNAME, datetime)
-        if "u_v" in self.wrfout.var_ds.dims:
-            v_data = v_data[1, :, :]
+        if "water_vapor_flux" in U_VEXTOR_VARNAME:
+            self.wrfout.get_moisture_flux(U_VEXTOR_VARNAME, datetime)
+            u_data = self.wrfout.moisture_flux_u
+            v_data = self.wrfout.moisture_flux_v
+        else:
+            u_data = self.wrfout.get_var_array(U_VEXTOR_VARNAME, datetime)
+            if "u_v" in self.wrfout.var_ds.dims:
+                u_data = u_data[0, :, :]
+            v_data = self.wrfout.get_var_array(V_VEXTOR_VARNAME, datetime)
+            if "u_v" in self.wrfout.var_ds.dims:
+                v_data = v_data[1, :, :]
         ax.plot_vector(
             self.wrfout.lon,
             self.wrfout.lat,
@@ -111,7 +127,14 @@ class PlotWrfoutData:
 
         basefig = pickle.loads(self.basefig)
         target_ax = GeoAxesMethod(plt.gca())
-        self.save_dir = f"{self.save_rootdir}/horizontal/"
+        if "surface" in TITLE:
+            self.save_dir = f"{self.save_rootdir}/horizontal/surface/"
+        elif "precipitation" in TITLE:
+            self.save_dir = f"{self.save_rootdir}/horizontal/"
+        else:
+            self.save_dir = (
+                f"{self.save_rootdir}/horizontal/{PRESSURE_PLAIN}hPa/"
+            )
         if shade_plot:
             self.plot_shade(target_ax, datetime)
         if contour_plot:

@@ -36,6 +36,7 @@ from constant import (  # VECTOR_HEADAXIS_LENGTH,; VECTOR_HEADLENGTH,; VECTOR_HE
     VECTOR_REDUCTION_SCALE,
     WHITE_PART_NUM_FROM_MIDDLE,
     paint_all,
+    plot_contour_label,
 )
 from figure.fig_calculation import (
     get_cbar_levels,
@@ -133,12 +134,13 @@ class GeoAxesMethod(BaseAxesMethod):
             linewidths=CONTOUR_WIDTH,
             colors=CONTOUR_COLOR,
         )
-        self.ax.clabel(
-            self.contour,
-            levels=get_clabel_levels(),
-            fmt="%.{0[0]}f".format([0]),
-            fontsize=CONTOUR_LABEL_SIZE,
-        )
+        if plot_contour_label:
+            self.ax.clabel(
+                self.contour,
+                levels=get_clabel_levels(),
+                fmt="%.{0[0]}f".format([0]),
+                fontsize=CONTOUR_LABEL_SIZE,
+            )
 
     def plot_vector(
         self,

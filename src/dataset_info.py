@@ -8,7 +8,7 @@ from time_relation.conversion import get_formatted_times
 
 class WrfoutInfoOutput:
     def __init__(self, wrfout_path: str) -> None:
-        self.parent_dir = Path(wrfout_path).parent
+        self.parent_dir = str(Path(wrfout_path).parents[1])
         self.wrfout_name = Path(wrfout_path).stem
         self.dataset = open_dataset(wrfout_path)
         self.dataset = self.make_time_lat_lon_coords()
@@ -23,7 +23,9 @@ class WrfoutInfoOutput:
         return self.dataset
 
     def output_dataset_information(self) -> None:
-        output_path = f"{self.parent_dir}/info_{self.wrfout_name}.txt"
+        output_path = (
+            f"{self.parent_dir}/information/{self.wrfout_name}_info.txt"
+        )
         with open(output_path, mode="w") as f:
             f.write("################### Overview ###################\n")
             f.write(f"<< dimension infomation >>\n{self.dataset.dims} \n")

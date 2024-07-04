@@ -33,6 +33,10 @@ ds = Dataset(wrfout_path)
 # lon = getvar(ds, "lon")
 # lat = getvar(ds, "lat")
 
+dy = to_np(getvar(ds, "DX2D"))
+print(dy)
+
+
 # t = getvar(ds, "RAINNC")
 # print(t)
 
