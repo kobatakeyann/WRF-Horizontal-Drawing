@@ -7,7 +7,7 @@
 # 仮想環境の作成とactivate
 ```
 # via anaconda
-conda create -n wrf
+conda env create -f requirements.yml
 conda activate wrf
 ```
 
