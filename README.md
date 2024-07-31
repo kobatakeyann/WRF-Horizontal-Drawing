@@ -1,4 +1,4 @@
-# Synthetic Radar
+# WRF Drawing
 領域気象モデルWRFのシミュレーション結果を描画します。
 
 ![](sample.gif)
