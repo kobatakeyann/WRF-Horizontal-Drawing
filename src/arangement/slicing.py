@@ -69,7 +69,7 @@ class Slicing:
         self, varname: str, pressure: float, datetime: datetime
     ) -> None:
         target_var_ds = self.get_var_dataset(varname, datetime)
-        pressure_ds = self.get_var_dataset("p", datetime)
+        pressure_ds = self.get_var_dataset("pressure", datetime)
         self.var_ds = interplevel(target_var_ds, pressure_ds, pressure)
         self.var_ds.attrs["description"] = target_var_ds.description
 
