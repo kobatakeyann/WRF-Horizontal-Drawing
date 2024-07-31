@@ -21,7 +21,6 @@ python src/main.py
 作成された画像は `img`下に出力されます。
  
 # Note
-- ### 変数名
    描画する変数名は、<br>
    `data/wrfout/information`下に出力されるテキストファイル及び
    [公式ドキュメント](https://wrf-python.readthedocs.io/en/latest/user_api/generated/wrf.getvar.html#wrf.getvar)を参照してください。
