@@ -32,7 +32,7 @@ from figure.fig_text import TextAquisition
 from figure.map.plot import make_blank_map
 from gif.gif import make_gif_from_imgs
 from mp4.video import make_mp4_from_imgs
-from util.path_complement import generate_path
+from util.path import generate_path
 
 
 class PlotWrfoutData:
