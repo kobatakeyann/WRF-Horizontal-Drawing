@@ -1,7 +1,7 @@
 from constant import contour_plot, shade_plot, vector_plot
 from dataset_info import WrfoutInfoOutput
 from figure.plot import PlotWrfoutData
-from util.path_complement import generate_path
+from util.path import generate_path
 
 if __name__ == "__main__":
     wrfout_path = generate_path(
