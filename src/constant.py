@@ -1,40 +1,369 @@
+# d02 surface_water_divegence
+# WRFOUT_INTERVAL = 10
+
+# LAT_START = 33.006493
+# LAT_END = 33.797226
+# LON_START = 129.97696
+# LON_END = 130.7594
+
+# LON_TICKS_INTERVAL = 0.1
+# LAT_TICKS_INTERVAL = 0.1
+
+# is_deg_min_format = False
+
+# PRESSURE_PLAIN = 900
+# TITLE = "divergence of surface water vapor flux"
+# TITLE_SIZE = 11  # 14
+
+# shade_plot = True
+# SHADE_VARNAME = "surface_water_vapor_flux_divergence"
+# SHADE_MIN = -0.04
+# SHADE_MAX = 0.04
+# SHADE_INTERVAL = 0.005
+# SHADE_MULTIPLIER = 1
+# SHADE_ADDITION = 0
+
+# COLOR_MAP_NAME = "seismic"  # seismic
+# CBAR_EXTENTION = "both"  # max, both
+# paint_all = False
+# WHITE_PART_NUM_FROM_MIDDLE = 2
+
+# CBAR_TICKS_INTERVAL = 20
+# CBAR_TICKS_BASE = 1
+# # CBAR_UNIT = "[℃]"
+# # CBAR_UNIT = r"[$\mathrm{s^-1}$]"
+# # CBAR_UNIT = r"[$\mathrm{g\,m^{-2}\,s^{-1}}$]"
+# CBAR_UNIT = r"[$\mathrm{g\,m^{-3}\,s^{-1}}$]"
+# CBAR_LABEL_SIZE = 7  # 10
+# CBAR_LABEL_LOCATION = -15  # 3
+# cbar_auto_ticks = True
+
+# contour_plot = True
+# CONTOUR_VARNAME = "HGT"
+# CONTOUR_MIN = 150
+# CONTOUR_MAX = 1050
+# CONTOUR_INTERVAL = 100
+# CONTOUR_MULTIPLIER = 1
+# CONTOUR_ADDITION = 0
+# CONTOUR_WIDTH = 0.1
+# CONTOUR_COLOR = "black"
+# CONTOUR_LABEL_SIZE = 5
+# plot_contour_label = False
+# CONTOUR_LABEL_INTERVAL = 300
+
+# vector_plot = True
+# U_VEXTOR_VARNAME = "surface_water_vapor_flux"
+# V_VEXTOR_VARNAME = "surface_water_vapor_flux"
+# VECTOR_DENSITY = 24
+# VECTOR_REDUCTION_SCALE = 1400  # 100
+# VECTOR_COLOR = "lightslategray"  # sandybrown
+# VECTOR_MULTIPLIER = 1000
+# # VECTOR_COLOR = "steelblue"
+# # VECTOR_WIDTH = 0.005
+# # VECTOR_LINEWIDTH = 1.5
+# # VECTOR_HEADWIDTH = 2.0
+# # VECTOR_HEADLENGTH = 1.5
+# # VECTOR_HEADAXIS_LENGTH = 1.5
+
+# VECTOR_LEDEND_VALUE = 100
+# # VECTOR_LEGEND_NAME = f"{VECTOR_LEDEND_VALUE} " + r"[$\mathrm{m/s}$]"
+# VECTOR_LEGEND_NAME = (
+#     f"{VECTOR_LEDEND_VALUE} " + r"[$\mathrm{g\,m^{-2}\,s^{-1}}$]"
+# )
+
+# grid_line = False
+# GRIDLINE_COLOR = "grey"
+# GRIDLINE_WIDTH = 0.5
+
+# VAR_INFO_XLOCATION = -0.05
+# VAR_INFO_YLOCATION = -0.125
+
+# GIF_INTERVAL_TIME = 150
+# GIF_NAME = TITLE
+# MP4_FPS = 5.0
+# MP4_NAME = TITLE
+
+
+# d02 surface_qv
+# WRFOUT_INTERVAL = 10
+
+# LAT_START = 30.936047
+# LAT_END = 34.44063
+# LON_START = 129
+# LON_END = 132.37872
+
+# LON_TICKS_INTERVAL = 0.5
+# LAT_TICKS_INTERVAL = 0.5
+
+# is_deg_min_format = True
+
+# PRESSURE_PLAIN = 900
+# TITLE = "surface QV"
+# TITLE_SIZE = 14
+
+# shade_plot = True
+# SHADE_VARNAME = "Q2"
+# SHADE_MIN = 17
+# SHADE_MAX = 24
+# SHADE_INTERVAL = 0.5
+# SHADE_MULTIPLIER = 1000
+# SHADE_ADDITION = 0
+
+# COLOR_MAP_NAME = "Blues"
+# CBAR_EXTENTION = "max"
+# paint_all = True
+# WHITE_PART_NUM_FROM_MIDDLE = 2
+
+# CBAR_TICKS_INTERVAL = 20
+# CBAR_TICKS_BASE = 1
+# CBAR_UNIT = "[g/kg]"
+# CBAR_LABEL_SIZE = 10
+# CBAR_LABEL_LOCATION = -3
+# cbar_auto_ticks = True
+
+# contour_plot = True
+# CONTOUR_VARNAME = "HGT"
+# CONTOUR_MIN = 150
+# CONTOUR_MAX = 1050
+# CONTOUR_INTERVAL = 100
+# CONTOUR_MULTIPLIER = 1
+# CONTOUR_ADDITION = 0
+# CONTOUR_WIDTH = 0.1
+# CONTOUR_COLOR = "black"
+# CONTOUR_LABEL_SIZE = 5
+# plot_contour_label = False
+# CONTOUR_LABEL_INTERVAL = 300
+
+# vector_plot = True
+# U_VEXTOR_VARNAME = "uvmet10"
+# V_VEXTOR_VARNAME = "uvmet10"
+# VECTOR_DENSITY = 40
+# VECTOR_REDUCTION_SCALE = 30
+# VECTOR_COLOR = "palevioletred"
+# VECTOR_MULTIPLIER = 1
+# # VECTOR_COLOR = "steelblue"
+# # VECTOR_WIDTH = 0.005
+# # VECTOR_LINEWIDTH = 1.5
+# # VECTOR_HEADWIDTH = 2.0
+# # VECTOR_HEADLENGTH = 1.5
+# # VECTOR_HEADAXIS_LENGTH = 1.5
+
+# VECTOR_LEDEND_VALUE = 5
+# VECTOR_LEGEND_NAME = f"{VECTOR_LEDEND_VALUE} " + r"[$\mathrm{m/s}$]"
+
+# grid_line = False
+# GRIDLINE_COLOR = "grey"
+# GRIDLINE_WIDTH = 0.5
+
+# VAR_INFO_XLOCATION = -0.05
+# VAR_INFO_YLOCATION = -0.125
+
+# GIF_INTERVAL_TIME = 150
+# GIF_NAME = TITLE
+# MP4_FPS = 5.0
+# MP4_NAME = TITLE
+
+
+# d02 precipitation
+# WRFOUT_INTERVAL = 10
+
+# LAT_START = 30.936047
+# LAT_END = 34.44063
+# LON_START = 129
+# LON_END = 132.37872
+
+# LON_TICKS_INTERVAL = 0.5
+# LAT_TICKS_INTERVAL = 0.5
+
+# is_deg_min_format = True
+
+# PRESSURE_PLAIN = 900
+# TITLE = "precipitation"
+# TITLE_SIZE = 14
+
+# shade_plot = True
+# SHADE_VARNAME = "RAINNC"
+# SHADE_MIN = 1
+# SHADE_MAX = 51
+# SHADE_INTERVAL = 5
+# SHADE_MULTIPLIER = 1
+# SHADE_ADDITION = 0
+
+# COLOR_MAP_NAME = "jet"
+# CBAR_EXTENTION = "max"
+# paint_all = True
+# WHITE_PART_NUM_FROM_MIDDLE = 2
+
+# CBAR_TICKS_INTERVAL = 20
+# CBAR_TICKS_BASE = 1
+# CBAR_UNIT = "[mm/h]"
+# CBAR_LABEL_SIZE = 10
+# CBAR_LABEL_LOCATION = 3
+# cbar_auto_ticks = True
+
+# contour_plot = True
+# CONTOUR_VARNAME = "HGT"
+# CONTOUR_MIN = 150
+# CONTOUR_MAX = 2150
+# CONTOUR_INTERVAL = 100
+# CONTOUR_MULTIPLIER = 1
+# CONTOUR_ADDITION = 0
+# CONTOUR_WIDTH = 0.1
+# CONTOUR_COLOR = "black"
+# CONTOUR_LABEL_SIZE = 5
+# plot_contour_label = False
+# CONTOUR_LABEL_INTERVAL = 2000
+
+# vector_plot = False
+# U_VEXTOR_VARNAME = "uvmet10"
+# V_VEXTOR_VARNAME = "uvmet10"
+# VECTOR_DENSITY = 40
+# VECTOR_REDUCTION_SCALE = 30
+# VECTOR_COLOR = "palevioletred"
+# VECTOR_MULTIPLIER = 1
+# # VECTOR_COLOR = "steelblue"
+# # VECTOR_WIDTH = 0.005
+# # VECTOR_LINEWIDTH = 1.5
+# # VECTOR_HEADWIDTH = 2.0
+# # VECTOR_HEADLENGTH = 1.5
+# # VECTOR_HEADAXIS_LENGTH = 1.5
+
+# VECTOR_LEDEND_VALUE = 5
+# VECTOR_LEGEND_NAME = f"{VECTOR_LEDEND_VALUE} " + r"[$\mathrm{m/s}$]"
+
+# grid_line = False
+# GRIDLINE_COLOR = "grey"
+# GRIDLINE_WIDTH = 0.5
+
+# VAR_INFO_XLOCATION = -0.05
+# VAR_INFO_YLOCATION = -0.125
+
+# GIF_INTERVAL_TIME = 150
+# GIF_NAME = TITLE
+# MP4_FPS = 5.0
+# MP4_NAME = TITLE
+
+
+# d02 water_vapor_flux_divergence
+# WRFOUT_INTERVAL = 10
+
+# LAT_START = 32
+# LAT_END = 34
+# LON_START = 129.5
+# LON_END = 132.37872
+
+# LON_TICKS_INTERVAL = 0.5
+# LAT_TICKS_INTERVAL = 0.5
+
+# is_deg_min_format = False
+
+# PRESSURE_PLAIN = 900
+# TITLE = "divergence of surface water vapor flux"
+# TITLE_SIZE = 11
+
+# shade_plot = True
+# SHADE_VARNAME = "surface_water_vapor_flux_divergence"
+# SHADE_MIN = -0.04
+# SHADE_MAX = 0.04
+# SHADE_INTERVAL = 0.005
+# SHADE_MULTIPLIER = 1
+# SHADE_ADDITION = 0
+
+# COLOR_MAP_NAME = "seismic"
+# CBAR_EXTENTION = "both"
+# paint_all = False
+# WHITE_PART_NUM_FROM_MIDDLE = 2
+
+# CBAR_TICKS_INTERVAL = 20
+# CBAR_TICKS_BASE = 1
+# CBAR_UNIT = r"[$\mathrm{g\,m^{-3}\,s^{-1}}$]"
+# CBAR_LABEL_SIZE = 7
+# CBAR_LABEL_LOCATION = -15
+# cbar_auto_ticks = True
+
+# contour_plot = True
+# CONTOUR_VARNAME = "HGT"
+# CONTOUR_MIN = 150
+# CONTOUR_MAX = 1050
+# CONTOUR_INTERVAL = 100
+# CONTOUR_MULTIPLIER = 1
+# CONTOUR_ADDITION = 0
+# CONTOUR_WIDTH = 0.1
+# CONTOUR_COLOR = "black"
+# CONTOUR_LABEL_SIZE = 5
+# plot_contour_label = False
+# CONTOUR_LABEL_INTERVAL = 300
+
+# vector_plot = True
+# U_VEXTOR_VARNAME = "surface_water_vapor_flux"
+# V_VEXTOR_VARNAME = "surface_water_vapor_flux"
+# VECTOR_DENSITY = 23
+# VECTOR_REDUCTION_SCALE = 600
+# VECTOR_COLOR = "sandybrown"  # lightslategray
+# VECTOR_MULTIPLIER = 1000
+# # VECTOR_COLOR = "steelblue"
+# # VECTOR_WIDTH = 0.005
+# # VECTOR_LINEWIDTH = 1.5
+# # VECTOR_HEADWIDTH = 2.0
+# # VECTOR_HEADLENGTH = 1.5
+# # VECTOR_HEADAXIS_LENGTH = 1.5
+
+# VECTOR_LEDEND_VALUE = 100
+# VECTOR_LEGEND_NAME = (
+#     f"{VECTOR_LEDEND_VALUE} " + r"[$\mathrm{g\,m^{-2}\,s^{-1}}$]"
+# )
+
+# grid_line = False
+# GRIDLINE_COLOR = "grey"
+# GRIDLINE_WIDTH = 0.5
+
+# VAR_INFO_XLOCATION = -0.05
+# VAR_INFO_YLOCATION = -0.125
+
+# GIF_INTERVAL_TIME = 150
+# GIF_NAME = TITLE
+# MP4_FPS = 5.0
+# MP4_NAME = TITLE
+
+
+# d03 dbz_700hPa
 WRFOUT_INTERVAL = 10
 
-LAT_START = 33.006493
-LAT_END = 33.797226
-LON_START = 129.97696
-LON_END = 130.7594
+LAT_START = 30.936047
+LAT_END = 34.44063
+LON_START = 129
+LON_END = 132.37872
 
-LON_TICKS_INTERVAL = 0.1
-LAT_TICKS_INTERVAL = 0.1
+LON_TICKS_INTERVAL = 0.5
+LAT_TICKS_INTERVAL = 0.5
 
-is_deg_min_format = False
+is_deg_min_format = True
 
-PRESSURE_PLAIN = 700
-TITLE = "dbz"
-TITLE_SIZE = 14
+PRESSURE_PLAIN = 500
+TITLE = "500hPa temperature"
+TITLE_SIZE = 11
 
 shade_plot = True
-SHADE_VARNAME = "dbz"
-SHADE_MIN = 1
-SHADE_MAX = 51
-SHADE_INTERVAL = 5
+SHADE_VARNAME = "tk"
+SHADE_MIN = -6
+SHADE_MAX = -2
+SHADE_INTERVAL = 0.5
 SHADE_MULTIPLIER = 1
-SHADE_ADDITION = 0
+SHADE_ADDITION = -273
 
-COLOR_MAP_NAME = "jet"
-CBAR_EXTENTION = "max"
+COLOR_MAP_NAME = "Blues"
+CBAR_EXTENTION = "both"
 paint_all = True
 WHITE_PART_NUM_FROM_MIDDLE = 2
 
 CBAR_TICKS_INTERVAL = 20
 CBAR_TICKS_BASE = 1
-CBAR_UNIT = "[dbz]"
+CBAR_UNIT = "[℃]"
 CBAR_LABEL_SIZE = 10
 CBAR_LABEL_LOCATION = 3
 cbar_auto_ticks = True
 
-contour_plot = True
+contour_plot = False
 CONTOUR_VARNAME = "HGT"
 CONTOUR_MIN = 150
 CONTOUR_MAX = 2150
@@ -50,9 +379,9 @@ CONTOUR_LABEL_INTERVAL = 2000
 vector_plot = False
 U_VEXTOR_VARNAME = "uvmet10"
 V_VEXTOR_VARNAME = "uvmet10"
-VECTOR_DENSITY = 40
+VECTOR_DENSITY = 22
 VECTOR_REDUCTION_SCALE = 30
-VECTOR_COLOR = "palevioletred"
+VECTOR_COLOR = "lightslategray"
 VECTOR_MULTIPLIER = 1
 # VECTOR_COLOR = "steelblue"
 # VECTOR_WIDTH = 0.005
@@ -61,8 +390,11 @@ VECTOR_MULTIPLIER = 1
 # VECTOR_HEADLENGTH = 1.5
 # VECTOR_HEADAXIS_LENGTH = 1.5
 
-VECTOR_LEDEND_VALUE = 5
-VECTOR_LEGEND_NAME = f"{VECTOR_LEDEND_VALUE} " + r"[$\mathrm{m/s}$]"
+VECTOR_LEDEND_VALUE = 100
+VECTOR_LEDEND_SIZE = 8
+VECTOR_LEGEND_NAME = (
+    f"{VECTOR_LEDEND_VALUE} " + r"[$\mathrm{g\,kg^{-1}\,m\,s^{-1}}$]"
+)
 
 grid_line = False
 GRIDLINE_COLOR = "grey"
@@ -75,3 +407,327 @@ GIF_INTERVAL_TIME = 150
 GIF_NAME = TITLE
 MP4_FPS = 5.0
 MP4_NAME = TITLE
+
+
+# # d02 suface_water_flux_div _ qv_contour
+# WRFOUT_INTERVAL = 10
+
+# LAT_START = 32
+# LAT_END = 34
+# LON_START = 129.5
+# LON_END = 132.37872
+
+# LON_TICKS_INTERVAL = 0.5
+# LAT_TICKS_INTERVAL = 0.5
+
+# is_deg_min_format = False
+
+# PRESSURE_PLAIN = 900
+# TITLE = "divergence of surface water vapor flux"
+# TITLE_SIZE = 11
+
+# shade_plot = True
+# SHADE_VARNAME = "Q2"
+# SHADE_MIN = 17
+# SHADE_MAX = 25
+# SHADE_INTERVAL = 0.5
+# SHADE_MULTIPLIER = 1000
+# SHADE_ADDITION = 0
+
+# COLOR_MAP_NAME = "Blues"
+# CBAR_EXTENTION = "max"
+# paint_all = True
+# WHITE_PART_NUM_FROM_MIDDLE = 2
+
+# CBAR_TICKS_INTERVAL = 20
+# CBAR_TICKS_BASE = 1
+# CBAR_UNIT = r"[$\mathrm{g\,kg^{-1}}$]"
+# CBAR_LABEL_SIZE = 7
+# CBAR_LABEL_LOCATION = -15
+# cbar_auto_ticks = True
+
+# contour_plot = True
+# CONTOUR_VARNAME = "surface_water_vapor_flux_divergence"
+# CONTOUR_MIN = -0.08
+# CONTOUR_MAX = -0.02
+# CONTOUR_INTERVAL = 0.02
+# CONTOUR_MULTIPLIER = 1
+# CONTOUR_ADDITION = 0
+# CONTOUR_WIDTH = 1
+# CONTOUR_COLOR = "maroon"
+# CONTOUR_LABEL_SIZE = 5
+# plot_contour_label = False
+# CONTOUR_LABEL_INTERVAL = 0.01
+
+# vector_plot = True
+# U_VEXTOR_VARNAME = "surface_water_vapor_flux"
+# V_VEXTOR_VARNAME = "surface_water_vapor_flux"
+# VECTOR_DENSITY = 23
+# VECTOR_REDUCTION_SCALE = 600
+# VECTOR_COLOR = "sandybrown"  # lightslategray
+# VECTOR_MULTIPLIER = 1000
+# # VECTOR_COLOR = "steelblue"
+# # VECTOR_WIDTH = 0.005
+# # VECTOR_LINEWIDTH = 1.5
+# # VECTOR_HEADWIDTH = 2.0
+# # VECTOR_HEADLENGTH = 1.5
+# # VECTOR_HEADAXIS_LENGTH = 1.5
+
+# VECTOR_LEDEND_VALUE = 100
+# VECTOR_LEDEND_SIZE = 8
+# VECTOR_LEGEND_NAME = (
+#     f"{VECTOR_LEDEND_VALUE} " + r"[$\mathrm{g\,kg^{-1}\,m\,s^{-1}}$]"
+# )
+
+# grid_line = False
+# GRIDLINE_COLOR = "grey"
+# GRIDLINE_WIDTH = 0.5
+
+# VAR_INFO_XLOCATION = -0.05
+# VAR_INFO_YLOCATION = -0.125
+
+# GIF_INTERVAL_TIME = 150
+# GIF_NAME = TITLE
+# MP4_FPS = 5.0
+# MP4_NAME = TITLE
+
+
+# d03 precipitation
+# WRFOUT_INTERVAL = 10
+
+# LAT_START = 33.006493
+# LAT_END = 33.797226
+# LON_START = 129.97696
+# LON_END = 130.7594
+
+# LON_TICKS_INTERVAL = 0.1
+# LAT_TICKS_INTERVAL = 0.1
+
+# is_deg_min_format = False
+
+# PRESSURE_PLAIN = 900
+# TITLE = "precipitation"
+# TITLE_SIZE = 14
+
+# shade_plot = True
+# SHADE_VARNAME = "RAINNC"
+# SHADE_MIN = 1
+# SHADE_MAX = 51
+# SHADE_INTERVAL = 5
+# SHADE_MULTIPLIER = 1
+# SHADE_ADDITION = 0
+
+# COLOR_MAP_NAME = "jet"
+# CBAR_EXTENTION = "max"
+# paint_all = True
+# WHITE_PART_NUM_FROM_MIDDLE = 2
+
+# CBAR_TICKS_INTERVAL = 20
+# CBAR_TICKS_BASE = 1
+# CBAR_UNIT = "[mm/h]"
+# CBAR_LABEL_SIZE = 10
+# CBAR_LABEL_LOCATION = 3
+# cbar_auto_ticks = True
+
+# contour_plot = True
+# CONTOUR_VARNAME = "HGT"
+# CONTOUR_MIN = 150
+# CONTOUR_MAX = 2150
+# CONTOUR_INTERVAL = 100
+# CONTOUR_MULTIPLIER = 1
+# CONTOUR_ADDITION = 0
+# CONTOUR_WIDTH = 0.1
+# CONTOUR_COLOR = "black"
+# CONTOUR_LABEL_SIZE = 5
+# plot_contour_label = False
+# CONTOUR_LABEL_INTERVAL = 2000
+
+# vector_plot = False
+# U_VEXTOR_VARNAME = "uvmet10"
+# V_VEXTOR_VARNAME = "uvmet10"
+# VECTOR_DENSITY = 40
+# VECTOR_REDUCTION_SCALE = 30
+# VECTOR_COLOR = "palevioletred"
+# VECTOR_MULTIPLIER = 1
+# # VECTOR_COLOR = "steelblue"
+# # VECTOR_WIDTH = 0.005
+# # VECTOR_LINEWIDTH = 1.5
+# # VECTOR_HEADWIDTH = 2.0
+# # VECTOR_HEADLENGTH = 1.5
+# # VECTOR_HEADAXIS_LENGTH = 1.5
+
+# VECTOR_LEDEND_VALUE = 5
+# VECTOR_LEDEND_SIZE = 12
+# VECTOR_LEGEND_NAME = f"{VECTOR_LEDEND_VALUE} " + r"[$\mathrm{m/s}$]"
+
+# grid_line = False
+# GRIDLINE_COLOR = "grey"
+# GRIDLINE_WIDTH = 0.5
+
+# VAR_INFO_XLOCATION = -0.05
+# VAR_INFO_YLOCATION = -0.125
+
+# GIF_INTERVAL_TIME = 150
+# GIF_NAME = TITLE
+# MP4_FPS = 5.0
+# MP4_NAME = TITLE
+
+# d03 surface_qv
+# WRFOUT_INTERVAL = 10
+
+# LAT_START = 33.006493
+# LAT_END = 33.797226
+# LON_START = 129.97696
+# LON_END = 130.7594
+
+# LON_TICKS_INTERVAL = 0.1
+# LAT_TICKS_INTERVAL = 0.1
+
+# is_deg_min_format = False
+
+# PRESSURE_PLAIN = 900
+# TITLE = "surface QV"
+# TITLE_SIZE = 14
+
+# shade_plot = True
+# SHADE_VARNAME = "Q2"
+# SHADE_MIN = 17
+# SHADE_MAX = 23
+# SHADE_INTERVAL = 0.5
+# SHADE_MULTIPLIER = 1000
+# SHADE_ADDITION = 0
+
+# COLOR_MAP_NAME = "Blues"
+# CBAR_EXTENTION = "max"
+# paint_all = True
+# WHITE_PART_NUM_FROM_MIDDLE = 2
+
+# CBAR_TICKS_INTERVAL = 20
+# CBAR_TICKS_BASE = 1
+# CBAR_UNIT = "[g/kg]"
+# CBAR_LABEL_SIZE = 10
+# CBAR_LABEL_LOCATION = -3
+# cbar_auto_ticks = True
+
+# contour_plot = True
+# CONTOUR_VARNAME = "HGT"
+# CONTOUR_MIN = 150
+# CONTOUR_MAX = 1050
+# CONTOUR_INTERVAL = 100
+# CONTOUR_MULTIPLIER = 1
+# CONTOUR_ADDITION = 0
+# CONTOUR_WIDTH = 0.1
+# CONTOUR_COLOR = "black"
+# CONTOUR_LABEL_SIZE = 5
+# plot_contour_label = False
+# CONTOUR_LABEL_INTERVAL = 300
+
+# vector_plot = True
+# U_VEXTOR_VARNAME = "uvmet10"
+# V_VEXTOR_VARNAME = "uvmet10"
+# VECTOR_DENSITY = 24
+# VECTOR_REDUCTION_SCALE = 100
+# VECTOR_COLOR = "sandybrown"
+# VECTOR_MULTIPLIER = 1
+# # VECTOR_COLOR = "steelblue"
+# # VECTOR_WIDTH = 0.005
+# # VECTOR_LINEWIDTH = 1.5
+# # VECTOR_HEADWIDTH = 2.0
+# # VECTOR_HEADLENGTH = 1.5
+# # VECTOR_HEADAXIS_LENGTH = 1.5
+
+# VECTOR_LEDEND_VALUE = 5
+# VECTOR_LEDEND_SIZE = 12
+# VECTOR_LEGEND_NAME = f"{VECTOR_LEDEND_VALUE} " + r"[$\mathrm{m/s}$]"
+
+# grid_line = False
+# GRIDLINE_COLOR = "grey"
+# GRIDLINE_WIDTH = 0.5
+
+# VAR_INFO_XLOCATION = -0.05
+# VAR_INFO_YLOCATION = -0.125
+
+# GIF_INTERVAL_TIME = 150
+# GIF_NAME = TITLE
+# MP4_FPS = 5.0
+# MP4_NAME = TITLE
+
+# d03 dbz
+# WRFOUT_INTERVAL = 10
+
+# LAT_START = 33.006493
+# LAT_END = 33.797226
+# LON_START = 129.97696
+# LON_END = 130.7594
+
+# LON_TICKS_INTERVAL = 0.1
+# LAT_TICKS_INTERVAL = 0.1
+
+# is_deg_min_format = False
+
+# PRESSURE_PLAIN = 700
+# TITLE = "dbz"
+# TITLE_SIZE = 14
+
+# shade_plot = True
+# SHADE_VARNAME = "dbz"
+# SHADE_MIN = 1
+# SHADE_MAX = 51
+# SHADE_INTERVAL = 5
+# SHADE_MULTIPLIER = 1
+# SHADE_ADDITION = 0
+
+# COLOR_MAP_NAME = "jet"
+# CBAR_EXTENTION = "max"
+# paint_all = True
+# WHITE_PART_NUM_FROM_MIDDLE = 2
+
+# CBAR_TICKS_INTERVAL = 20
+# CBAR_TICKS_BASE = 1
+# CBAR_UNIT = "[dbz]"
+# CBAR_LABEL_SIZE = 10
+# CBAR_LABEL_LOCATION = 3
+# cbar_auto_ticks = True
+
+# contour_plot = True
+# CONTOUR_VARNAME = "HGT"
+# CONTOUR_MIN = 150
+# CONTOUR_MAX = 2150
+# CONTOUR_INTERVAL = 100
+# CONTOUR_MULTIPLIER = 1
+# CONTOUR_ADDITION = 0
+# CONTOUR_WIDTH = 0.1
+# CONTOUR_COLOR = "black"
+# CONTOUR_LABEL_SIZE = 5
+# plot_contour_label = False
+# CONTOUR_LABEL_INTERVAL = 2000
+
+# vector_plot = False
+# U_VEXTOR_VARNAME = "uvmet10"
+# V_VEXTOR_VARNAME = "uvmet10"
+# VECTOR_DENSITY = 40
+# VECTOR_REDUCTION_SCALE = 30
+# VECTOR_COLOR = "palevioletred"
+# VECTOR_MULTIPLIER = 1
+# # VECTOR_COLOR = "steelblue"
+# # VECTOR_WIDTH = 0.005
+# # VECTOR_LINEWIDTH = 1.5
+# # VECTOR_HEADWIDTH = 2.0
+# # VECTOR_HEADLENGTH = 1.5
+# # VECTOR_HEADAXIS_LENGTH = 1.5
+
+# VECTOR_LEDEND_VALUE = 5
+# VECTOR_LEDEND_SIZE = 12
+# VECTOR_LEGEND_NAME = f"{VECTOR_LEDEND_VALUE} " + r"[$\mathrm{m/s}$]"
+
+# grid_line = False
+# GRIDLINE_COLOR = "grey"
+# GRIDLINE_WIDTH = 0.5
+
+# VAR_INFO_XLOCATION = -0.05
+# VAR_INFO_YLOCATION = -0.125
+
+# GIF_INTERVAL_TIME = 150
+# GIF_NAME = TITLE
+# MP4_FPS = 5.0
+# MP4_NAME = TITLE
