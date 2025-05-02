@@ -5,12 +5,14 @@ from typing import cast
 import matplotlib.pyplot as plt
 import numpy as np
 import xarray as xr
-from wrf import latlon_coords
-
 from constants.configuration import (
     CONTOUR_VARNAME,
     GIF_INTERVAL_TIME,
     GIF_NAME,
+    LAT_BOTTOM,
+    LAT_TOP,
+    LON_LEFT,
+    LON_RIGHT,
     MP4_FPS,
     MP4_NAME,
     PRESSURE_PLAIN,
@@ -31,6 +33,7 @@ from gif.gif import imgs_to_gif
 from mp4.video import imgs_to_mp4
 from time_relation.padding import PaddedDatetime
 from util.path import generate_path
+from wrf import latlon_coords
 from wrfout.handler.extraction import VariableExtractor
 from wrfout.handler.type import VectorComponent
 from wrfout.information.outputter import WrfoutInformationOutputter
@@ -171,10 +174,10 @@ def main():
         filename = f"{padded_dt.year}{padded_dt.month}{padded_dt.day}_{padded_dt.hour}{padded_dt.minute}JST.jpg"
         saving_rootdir = generate_path(f"/img/{Path(wrfout_path).stem}")
         if is_surface:
-            saving_dir = f"{saving_rootdir}/horizontal/surface/"
-            title = f"{padded_dt.year}/{padded_dt.month}/{padded_dt.day} {padded_dt.hour}{padded_dt.minute}JST surface {TITLE}"
+            saving_dir = f"{saving_rootdir}/horizontal/{LON_LEFT}_{LON_RIGHT}_{LAT_TOP}_{LAT_BOTTOM}/surface/"
+            title = f"{padded_dt.year}/{padded_dt.month}/{padded_dt.day} {padded_dt.hour}{padded_dt.minute}JST {TITLE}"
         else:
-            saving_dir = f"{saving_rootdir}/horizontal/{PRESSURE_PLAIN}hPa/"
+            saving_dir = f"{saving_rootdir}/horizontal/{LON_LEFT}_{LON_RIGHT}_{LAT_TOP}_{LAT_BOTTOM}/{PRESSURE_PLAIN}hPa/"
             title = f"{padded_dt.year}/{padded_dt.month}/{padded_dt.day} {padded_dt.hour}{padded_dt.minute}JST {PRESSURE_PLAIN}hPa {TITLE}"
         target_ax.set_title(title)
         # directory arrangement
