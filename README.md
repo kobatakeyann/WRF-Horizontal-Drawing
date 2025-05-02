@@ -16,14 +16,22 @@ conda activate wrf
 
 ## Usage
 
-`data/wrfout`下にシミュレーション結果のnetcdfファイルを配置し、<br>
-`src/constants/configureation.py`で描画範囲等を設定します。
+1. `data/wrfout`下にシミュレーション結果のnetcdfファイルを配置
 
-```bash
-python src/main.py
-```
+   ```bash
+   cd path/to/this/root_dir
+   mkdir -p data/wrfout
+   cp /path/to/your_wrfout_file.nc data/wrfout
+   ```
 
-を実行して、画像やGifを作成します。<br>
+2. `src/constants/configuration.py`で描画範囲等を設定
+
+3. `src/main.py`を実行して、画像やGifを作成
+
+   ```bash
+   python src/main.py
+   ```
+
 作成された画像は `img`下に出力されます。
 
 ## Note
