@@ -21,7 +21,7 @@ TITLE_SIZE = 11
 
 # shade
 shade_plot = True
-SHADE_VARNAME = "T2"  # Additional variable name: "moisture_flux", "wind_divergence", "moisure_flux_divergence"
+SHADE_VARNAME = "T2"  # Additional variable name: "precipitaion", "moisture_flux", "wind_divergence", "moisure_flux_divergence"
 SHADE_MAX = 36
 SHADE_MIN = 20
 SHADE_INTERVAL = 0.5
@@ -57,6 +57,6 @@ VECTOR_LEGEND_NAME = f"{VECTOR_LEDEND_VALUE} " + r"[$\mathrm{m\,s^{-1}}$]"
 
 # gif and mp4
 GIF_INTERVAL_TIME = 150
-GIF_NAME = TITLE
+GIF_NAME = "horizontal_cross_section.gif"
 MP4_FPS = 5.0
-MP4_NAME = TITLE
+MP4_NAME = "horizontal_cross_section.mp4"

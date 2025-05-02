@@ -1,16 +1,20 @@
+import os
 from datetime import datetime
 from typing import cast
 
 import netCDF4 as nc
 import numpy as np
 from numpy.typing import NDArray
-from wrf import ALL_TIMES, getvar, to_np
-
 from time_relation.conversion import datetime64s_to_datetimes
+from wrf import ALL_TIMES, getvar, to_np
 
 
 class WrfoutNetcdfDataset:
     def __init__(self, wrfout_path: str) -> None:
+        if not os.path.exists(wrfout_path):
+            raise FileNotFoundError(
+                f"File not found: {wrfout_path}. Specify a valid path."
+            )
         self._wrfout_path = wrfout_path
         self._dataset: nc.Dataset | None = None
         self._wrfout_interval_min: int | None = None
