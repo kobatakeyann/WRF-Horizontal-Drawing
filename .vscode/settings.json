@@ -4,11 +4,11 @@
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
             "source.organizeImports": "explicit"
-        },
+        }
     },
-    "black-formatter.interpreter": [
-        "/work1/kobatake_yusuke/miniconda3/envs/wrf/bin/python"
-    ],
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
     "black-formatter.args": [
         "--line-length=79"
     ],
@@ -18,4 +18,3 @@
         "black"
     ]
 }
-
